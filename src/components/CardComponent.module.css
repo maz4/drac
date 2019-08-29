@@ -1,7 +1,7 @@
 .Card {
     display: block;
-    width: 20%;
-    flex-basis: 20%;
+    width: 19%;
+    flex-basis: 19%;
     flex-grow: 0;
     flex-shrink: 1;
     text-align: center;
@@ -23,10 +23,10 @@ a {
     color: black;
 }
 
-@media (max-width: 768px){
-    .Card{
+@media (max-width: 768px) {
+    .Card {
         width: 23%;
-        flex-basis:23%;
+        flex-basis: 23%;
     }
 
     .Card:nth-child(3n) {
@@ -38,10 +38,10 @@ a {
     }
 }
 
-@media (max-width: 480px){
-    .Card{
-        width: 39%;
-        flex-basis: 39%;
+@media (max-width: 480px) {
+    .Card {
+        width: 38%;
+        flex-basis: 38%;
     }
 
     .Card:nth-child(3n) {
@@ -49,6 +49,18 @@ a {
     }
 
     .Card:nth-child(2n) {
+        margin-right: 0;
+    }
+}
+
+@media (max-width: 380px) {
+    .Card {
+        width: 100%;
+        flex-basis: 100%;
+        margin-right: 0;
+    }
+    
+    .Card:nth-child(3n) {
         margin-right: 0;
     }
 }
