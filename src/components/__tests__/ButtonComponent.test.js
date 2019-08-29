@@ -7,9 +7,7 @@ afterEach(()=>{
 })
 
 test('should render button', () => {
-  const {container} = render(<ButtonComponent />);
-  const button =  container.getByText('Buy Me');
-  expect(button.innerHTML).toBe('');
+  const {getByText} = render(<ButtonComponent />);
+  const button = getByText('Buy Me');
+  expect(button.innerHTML).toBe('Buy Me');
 });
-
-
