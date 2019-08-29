@@ -1,0 +1,54 @@
+.Card {
+    display: block;
+    width: 20%;
+    flex-basis: 20%;
+    flex-grow: 0;
+    flex-shrink: 1;
+    text-align: center;
+    margin-right: 1rem;
+    padding: 1rem;
+}
+
+.Card:nth-child(4n) {
+    margin-right: 0;
+}
+
+img {
+    width: 100%;
+}
+
+a {
+    text-decoration: none;
+    font-weight: normal;
+    color: black;
+}
+
+@media (max-width: 768px){
+    .Card{
+        width: 23%;
+        flex-basis:23%;
+    }
+
+    .Card:nth-child(3n) {
+        margin-right: 0;
+    }
+
+    .Card:nth-child(4n) {
+        margin-right: 1rem;
+    }
+}
+
+@media (max-width: 480px){
+    .Card{
+        width: 39%;
+        flex-basis: 39%;
+    }
+
+    .Card:nth-child(3n) {
+        margin-right: 1rem;
+    }
+
+    .Card:nth-child(2n) {
+        margin-right: 0;
+    }
+}
