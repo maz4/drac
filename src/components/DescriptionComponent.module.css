@@ -1,0 +1,14 @@
+.Description__Title{
+  font-size: 2rem;
+  padding-top: 0.5rem;
+  margin-top: 0;
+}
+
+.Description__Content {
+  font-size: 1.2rem;
+  margin-top: 0;
+}
+
+.Description {
+  position: relative
+}
