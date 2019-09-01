@@ -11,12 +11,12 @@ test('shows card component with', () => {
     const anchoreUrl = 'http://thisislink.com/';
     const imgDesc = 'card description';
     const cardTitle = 'Nice card'
-    const { container } = render(<CardComponent cardUrl={anchoreUrl} imgLink={imgUrl} imgDesc={imgDesc} title={cardTitle}/>);
+    const { container, queryByText } = render(<CardComponent cardUrl={anchoreUrl} imgLink={imgUrl} imgDesc={imgDesc} title={cardTitle}/>);
     const img = container.querySelector('img');
-    const h2 = container.querySelector('h2');
+    const title = queryByText(/nice card/i);
     const anchore = container.querySelector('a');
     expect(anchore.href).toBe(anchoreUrl);
     expect(img.src).toBe(imgUrl);
     expect(img.alt).toBe(imgDesc);
-    expect(h2.innerHTML).toBe(cardTitle);
+    expect(title).toBeDefined();
 });

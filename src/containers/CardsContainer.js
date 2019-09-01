@@ -16,7 +16,6 @@ class CardsContainer extends Component {
         const url = "https://search.moonpig.com/api/products?size=20&fq=card_shop_id:1";
         axios.get(proxyurl + url)
             .then(response => {
-                console.log(response.data.Products[0]);
                 this.setState({
                     cardsData: response.data.Products,
                     isLoading: false
