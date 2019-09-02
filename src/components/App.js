@@ -8,7 +8,7 @@ const App = () => {
   return (
     <div className={styles.App} >
       <Route exact path="/" component={CardsContainer} />
-      <Route exact path="/card/id" component={CardContainer} />
+      <Route exact path="/card/:id" component={CardContainer} />
     </div>
   )
 }

@@ -34,6 +34,7 @@ class CardsContainer extends Component {
                 imgLink = {card.ProductImage.Link.Href}
                 imgDesc = {card.Title}
                 title = {card.Title}
+                MoonpigProductNo={card.MoonpigProductNo}
                 key = {index} />
             );
         });
