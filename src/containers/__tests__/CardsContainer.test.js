@@ -24,10 +24,9 @@ jest.mock('axios', () => {
 });
 
 test('Should render Card on the page load', async () => {
-    const {container, getByAltText} = render(<CardsContainer />);
+    const {getByAltText} = render(<CardsContainer />);
     await wait(() => {});
     const cardImg = getByAltText('Photo Upload Card');
-    console.log(container.innerHTML);
     expect(cardImg.alt).toBe('Photo Upload Card');
 });
 
