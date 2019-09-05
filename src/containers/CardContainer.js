@@ -3,6 +3,7 @@ import styles from './CardContainer.module.css';
 import axios from 'axios';
 import DescriptionComponent from '../components/DescriptionComponent';
 import Spinner from '../components/Spinner';
+import { connect } from 'react-redux';
 
 class CardContainer extends Component {
   state = {
@@ -11,8 +12,9 @@ class CardContainer extends Component {
   }
 
   componentDidMount(){
+    const cardNo = localStorage.getItem('selectedCard');
     const proxyurl = "https://cors-anywhere.herokuapp.com/";
-    axios.get(proxyurl + "https://www.moonpig.com/uk/api/product/product/?mpn=" + this.props.MoonpigProductNo)
+    axios.get(proxyurl + "https://www.moonpig.com/uk/api/product/product/?mpn=" + cardNo)
       .then( response => {
         console.log(response)
         this.setState({
@@ -47,4 +49,10 @@ class CardContainer extends Component {
   }
 }
 
-export default CardContainer;
+const mapStateToProps = (state) => {
+  return {
+    selectedCard: state.selectedCard
+  }
+}
+
+export default connect(mapStateToProps)(CardContainer);

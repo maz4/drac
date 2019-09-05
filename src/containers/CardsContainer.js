@@ -1,25 +1,19 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux'
 import styles from './CardsContainer.module.css';
 import CardComponent from '../components/CardComponent';
 import Spinner from '../components/Spinner';
+import { getCards } from '../actions/actions';
 
 class CardsContainer extends Component {
-
-    state = {
-        cardsData: [],
-        isLoading: true
-    };
 
     componentDidMount() {
         const proxyurl = "https://cors-anywhere.herokuapp.com/";
         const url = "https://search.moonpig.com/api/products?size=20&fq=card_shop_id:1";
         axios.get(proxyurl + url)
             .then(response => {
-                this.setState({
-                    cardsData: response.data.Products,
-                    isLoading: false
-                });
+                this.props.getData(response.data.Products);
             })
             .catch(error => {
                 console.log(error);
@@ -28,7 +22,7 @@ class CardsContainer extends Component {
 
     render() {
 
-        const cards = this.state.cardsData.map((card, index) => {
+        const cards = this.props.cardsData.map((card, index) => {
             return (
                 <CardComponent cardUrl = {card.ProductLink.Href}
                 imgLink = {card.ProductImage.Link.Href}
@@ -43,11 +37,23 @@ class CardsContainer extends Component {
 
         return ( <
             div className = {styles.Container}>
-                { this.state.isLoading ? spinner : cards }
+                { this.props.isLoading ? spinner : cards }
             </div>
         );
     }
-
 }
 
-export default CardsContainer;
+const mapStateToProps = (state) => {
+    return {
+        cardsData: state.cardsData,
+        isLoading: state.isLoading
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        getData: (data) => dispatch(getCards(data))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CardsContainer);
