@@ -4,9 +4,13 @@ import { connect } from 'react-redux'
 import styles from './CardsContainer.module.css';
 import CardComponent from '../components/CardComponent';
 import Spinner from '../components/Spinner';
-import { getCards } from '../actions/actions';
+import { getCards, selectCard } from '../actions/actions';
 
 class CardsContainer extends Component {
+    constructor(props){
+        super();
+        this.onClickHandler = this.onClickHandler.bind(this);
+    }
 
     componentDidMount() {
         const proxyurl = "https://cors-anywhere.herokuapp.com/";
@@ -20,8 +24,14 @@ class CardsContainer extends Component {
             });
     }
 
-    render() {
+    onClickHandler(event){
+        event.preventDefault();
+        const cardNumber = event.target.dataset.cardno;
+        this.props.selectCrd(cardNumber);
+        this.props.history.push("/card/" + cardNumber)
+      }
 
+    render() {
         const cards = this.props.cardsData.map((card, index) => {
             return (
                 <CardComponent cardUrl = {card.ProductLink.Href}
@@ -29,6 +39,7 @@ class CardsContainer extends Component {
                 imgDesc = {card.Title}
                 title = {card.Title}
                 MoonpigProductNo={card.MoonpigProductNo}
+                onClickHandler={this.onClickHandler}
                 key = {index} />
             );
         });
@@ -52,7 +63,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getData: (data) => dispatch(getCards(data))
+        getData: (data) => dispatch(getCards(data)),
+        selectCrd: (cardNo) => dispatch(selectCard(cardNo))
     }
 }
 
