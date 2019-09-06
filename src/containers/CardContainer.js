@@ -9,14 +9,13 @@ class CardContainer extends Component {
   state = {
     cardData: {},
     isLoading: true,
+    cardNo: this.props.match.params.id
   }
 
   componentDidMount(){
-    const cardNo = localStorage.getItem('selectedCard');
     const proxyurl = "https://cors-anywhere.herokuapp.com/";
-    axios.get(proxyurl + "https://www.moonpig.com/uk/api/product/product/?mpn=" + cardNo)
+    axios.get(proxyurl + "https://www.moonpig.com/uk/api/product/product/?mpn=" + this.state.cardNo)
       .then( response => {
-        console.log(response)
         this.setState({
           cardData: response.data,
           isLoading: false
@@ -34,9 +33,12 @@ class CardContainer extends Component {
 
     let content = <div className={styles.CardContainer}>
         <div className={styles.CardImage}>
-          <img alt="img" src="https://d1xkhapf8f3lxw.cloudfront.net/api/images/Cardshop/1/product/PU1162" />
+          {this.state.cardData && this.state.cardData.ImageUrls && 
+            <img alt="img" src={this.state.cardData.ImageUrls[0].ImageUrl} /> }
         </div>
-        <DescriptionComponent title={'Temp title'} desc={'temp desc'} />
+        <DescriptionComponent 
+          title={this.state.cardData && this.state.cardData.Title} 
+          desc={this.state.cardData && this.state.cardData.Description} />
       </div>
 
     const spinner = <Spinner />;

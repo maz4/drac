@@ -6,7 +6,7 @@ import { selectCard } from '../actions/actions';
 const CardComponent = (props) => {
   
   function onClickHandler(event){
-    event.preventDefault();
+    // event.preventDefault();
     const cardNumber = event.target.dataset.cardno;
     props.selectCard(cardNumber);
     localStorage.setItem('selectedCard', cardNumber);
