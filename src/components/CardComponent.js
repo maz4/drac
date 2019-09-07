@@ -7,8 +7,8 @@ const CardComponent = (props) => {
 
   return (
     <div className={styles.Card}>
-      <a href={" /card/" + props.MoonpigProductNo} onClick={props.onClickHandler}>
-        <img src={props.imgLink} alt={props.imgDesc} data-cardno={props.MoonpigProductNo} />
+      <a href={props.MoonpigProductNo} onClick={props.onClickHandler} data-cardno={props.MoonpigProductNo}>
+        <img src={props.imgLink} alt={props.imgDesc}/>
         <h2>{props.title}</h2>
       </a>
     </div>
@@ -18,7 +18,7 @@ const CardComponent = (props) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     selectCard: (cardNo) => dispatch(selectCard(cardNo))
-  }
-}
+  };
+};
 
 export default connect(null, mapDispatchToProps)(CardComponent);

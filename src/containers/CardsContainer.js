@@ -15,21 +15,31 @@ class CardsContainer extends Component {
     componentDidMount() {
         const proxyurl = "https://cors-anywhere.herokuapp.com/";
         const url = "https://search.moonpig.com/api/products?size=20&fq=card_shop_id:1";
-        axios.get(proxyurl + url)
-            .then(response => {
-                this.props.getData(response.data.Products);
-            })
-            .catch(error => {
-                console.log(error);
-            });
+        if(this.props.isLoading && this.props.cardsData.length <= 0){
+            axios.get(proxyurl + url)
+                .then(response => {
+                    this.props.getData(response.data.Products);
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        }
     }
 
     onClickHandler(event){
         event.preventDefault();
-        const cardNumber = event.target.dataset.cardno;
+        let target = event.target;
+        let cardNumber = null;
+
+        while(target.tagName !== "DIV"){
+            if(target.tagName === "A" && target.hasAttribute('data-cardno')){
+                cardNumber = target.dataset.cardno;
+            }
+            target = target.parentNode;
+        }
         this.props.selectCrd(cardNumber);
         this.props.history.push("/card/" + cardNumber)
-      }
+    }
 
     render() {
         const cards = this.props.cardsData.map((card, index) => {

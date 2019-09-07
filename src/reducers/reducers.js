@@ -7,7 +7,6 @@ const initialState = {
 };
 
 const reducers = (state = initialState, action) => {
-  // console.log('reducer: ', action.payload, 'state: ', state);
   switch(action.type){
     case actionTypes.GET_CARDS:
       return {
