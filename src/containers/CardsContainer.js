@@ -7,11 +7,6 @@ import Spinner from '../components/Spinner';
 import { getCards, selectCard } from '../actions/actions';
 
 class CardsContainer extends Component {
-    constructor(props){
-        super();
-        this.onClickHandler = this.onClickHandler.bind(this);
-    }
-
     componentDidMount() {
         const proxyurl = "https://cors-anywhere.herokuapp.com/";
         const url = "https://search.moonpig.com/api/products?size=20&fq=card_shop_id:1";
@@ -26,39 +21,20 @@ class CardsContainer extends Component {
         }
     }
 
-    onClickHandler(event){
-        event.preventDefault();
-        let target = event.target;
-        let cardNumber = null;
-
-        while(target.tagName !== "DIV"){
-            if(target.tagName === "A" && target.hasAttribute('data-cardno')){
-                cardNumber = target.dataset.cardno;
-            }
-            target = target.parentNode;
-        }
-        this.props.selectCrd(cardNumber);
-        this.props.history.push("/card/" + cardNumber)
-    }
-
     render() {
-        const cards = this.props.cardsData.map((card, index) => {
-            return (
-                <CardComponent cardUrl = {card.ProductLink.Href}
-                imgLink = {card.ProductImage.Link.Href}
-                imgDesc = {card.Title}
-                title = {card.Title}
-                MoonpigProductNo={card.MoonpigProductNo}
-                onClickHandler={this.onClickHandler}
-                key = {index} />
-            );
-        });
-
-        const spinner = <Spinner />
+        if(this.props.isLoading){
+            return <Spinner />
+        }
 
         return ( <
             div className = {styles.Container}>
-                { this.props.isLoading ? spinner : cards }
+                {this.props.cardsData.map( card => (
+                    <CardComponent
+                        imgLink = {card.ProductImage.Link.Href}
+                        title = {card.Title}
+                        id={card.MoonpigProductNo}
+                        key = {card.MoonpigProductNo} />
+                ))}
             </div>
         );
     }
@@ -74,7 +50,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         getData: (data) => dispatch(getCards(data)),
-        selectCrd: (cardNo) => dispatch(selectCard(cardNo))
     }
 }
 

@@ -6,10 +6,3 @@ export const getCards = (data) => {
     payload: data
   };
 };
-
-export const selectCard = (card) => {
-  return {
-    type: actionTypes.SELECT_CARD,
-    payload: card
-  }
-}

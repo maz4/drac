@@ -14,11 +14,6 @@ const reducers = (state = initialState, action) => {
         cardsData: action.payload,
         isLoading: false
       };
-    case actionTypes.SELECT_CARD:
-      return {
-        ...state,
-        slectedCard: action.payload
-      };
     default:
       return state;
   }
