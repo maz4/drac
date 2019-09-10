@@ -78,4 +78,3 @@ test('Should render Card list on the main', async () => {
     
     expect(history.location.pathname).toBe("/card/one");
 });
-

@@ -1,7 +1,7 @@
 import * as actionTypes from '../constants/constants';
 import axios from 'axios';
 
-export const getAllCards = (data) => {
+const getAllCards = (data) => {
   return {
     type: actionTypes.GET_ALL_CARDS,
     payload: data
@@ -36,3 +36,16 @@ export const getCardData = (id) => {
   };
 };
 
+export const fetchData = () => {
+  const proxyurl = "https://cors-anywhere.herokuapp.com/";
+  const url = "https://search.moonpig.com/api/products?size=20&fq=card_shop_id:1";
+  return dispatch => {
+    axios.get(proxyurl + url)
+      .then(response => {
+        dispatch(getAllCards(response.data.Products));
+      })
+      .catch(error => {
+          console.log(error);
+      });
+  }
+}
