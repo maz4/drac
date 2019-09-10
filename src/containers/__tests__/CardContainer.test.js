@@ -1,20 +1,41 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, wait } from '@testing-library/react';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import { Router } from 'react-router-dom';
+import { createMemoryHistory } from 'history';
+
+import reducers from '../../reducers/reducers';
 import CardContainer from '../CardContainer';
 
-test.skip('it should render card with title, description and button', () => {
-  // const { queryByText, getByAltText } = render(<CardContainer 
-  //   cardUrl={"http://cardurl.card"}
-  //   imgLink={"http://imgurl.img"}
-  //   imgDesc={"A very nice card"}
-  //   title={"Celebration Card"} />
-  // );
+jest.mock('axios', () => {
+  return {
+    get: jest.fn( () => Promise.resolve({
+      data: {
+        ImageUrls: 'link1',
+        Title: 'title 1',
+        Description: 'description 1',
+      }
+    }))
+  };
+});
 
-  // const title = queryByText(/celebration card/i);
-  // const description = queryByText(/a very nice card/i);
-  // const alt = getByAltText(/img/i);
-  // expect(title).toBeDefined();
-  // expect(description).toBeDefined();
-  // expect(alt).toBeDefined();
 
+test('it should render card with title, description and button', async () => {
+  const store = createStore(reducers);
+  const history = createMemoryHistory({initialEntries: ['/one/']})
+  const { getByText, queryByText, getByAltText, queryByTestId } = render(
+    <Provider store={store} >
+      <Router history={history} >
+        <CardContainer />
+      </Router>
+    </Provider>
+  );
+  wait();
+  expect(queryByTestId("spinner")).toBeInTheDocument();
+
+  await wait(() => queryByText(/title\s/i));
+  expect(getByAltText(/title\s/i)).toBeInTheDocument();
+  expect(getByText(/description/i)).toBeInTheDocument();
+  expect(getByText(/buy\sme/i)).toBeInTheDocument();
 });

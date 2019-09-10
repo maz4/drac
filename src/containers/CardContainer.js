@@ -1,66 +1,54 @@
-import React, {
-    Component,
-    Fragment
-} from 'react';
-import styles from './CardContainer.module.css';
+import React, { Component } from 'react';
+import { connect } from 'react-redux'
 import axios from 'axios';
-import DescriptionComponent from '../components/DescriptionComponent';
+
 import Spinner from '../components/Spinner';
-import {
-    connect
-} from 'react-redux';
-import {} from 'react-router-dom'
+import DescriptionComponent from '../components/DescriptionComponent';
+import styles from './CardContainer.module.css';
+import { getCardData } from '../actions/actions';
 
 class CardContainer extends Component {
-    state = {
-        cardData: {},
-        isLoading: true,
-        cardNo: this.props.match.params.id
-    }
 
     componentDidMount() {
-        const proxyurl = "https://cors-anywhere.herokuapp.com/";
-        axios.get(proxyurl + "https://www.moonpig.com/uk/api/product/product/?mpn=" + this.state.cardNo)
-            .then(response => {
-                this.setState({
-                    cardData: response.data,
-                    isLoading: false
-                })
-            })
-            .catch(error => {
-                console.log(error);
-                this.setState({
-                    isLoading: false
-                })
-            });
+        this.props.getCardData();
+
     }
 
+
+
     render() {
-
-        let content = <div className={styles.CardContainer} >
-            <div className={styles.CardImage} > 
-                {this.state.cardData && this.state.cardData.ImageUrls &&
-                    <img alt = "img" src = {this.state.cardData.ImageUrls[0].ImageUrl}/> 
-                } 
-            </div> 
-            <DescriptionComponent
-                title={this.state.cardData && this.state.cardData.Title}
-                desc={this.state.cardData && this.state.cardData.Description} />
-        </div >;
-
-        const spinner = <Spinner />;
-            return ( 
-                <Fragment> 
-                    {this.state.isLoading ? spinner : content} 
-                </Fragment>
-            )
+        if(this.props.isLoadingCard){
+            return <Spinner />;
         }
+
+        return (
+            <div className={styles.CardContainer} >
+                <div className={styles.CardImage} > 
+                    {this.props.card && this.props.card.ImageUrls &&
+                        <img alt={this.props.card.Title}  
+                            src = {this.props.card.ImageUrls[0].ImageUrl} /> 
+                    } 
+                </div> 
+                <DescriptionComponent
+                    title={this.props.card && this.props.card.Title}
+                    desc={this.props.card && this.props.card.Description} />
+            </div >
+        );
+    }
 }
 
 const mapStateToProps = (state) => {
     return {
-        selectedCard: state.selectedCard
+        selectedCard: state.slectedCard,
+        isLoadingCard: state.isLoadingCard,
+        card: state.card
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        getCardData: (data) => dispatch(getCardData(data))
     }
 }
 
-export default connect(mapStateToProps)(CardContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(CardContainer);

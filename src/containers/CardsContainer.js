@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import styles from './CardsContainer.module.css';
 import CardComponent from '../components/CardComponent';
 import Spinner from '../components/Spinner';
-import { getCards, selectCard } from '../actions/actions';
+import { getAllCards } from '../actions/actions';
 
 class CardsContainer extends Component {
     componentDidMount() {
@@ -26,8 +26,7 @@ class CardsContainer extends Component {
             return <Spinner />
         }
 
-        return ( <
-            div className = {styles.Container}>
+        return ( <div className = {styles.Container}>
                 {this.props.cardsData.map( card => (
                     <CardComponent
                         imgLink = {card.ProductImage.Link.Href}
@@ -49,7 +48,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getData: (data) => dispatch(getCards(data)),
+        getData: (data) => dispatch(getAllCards(data)),
     }
 }
 

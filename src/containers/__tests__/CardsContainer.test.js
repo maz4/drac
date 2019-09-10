@@ -3,7 +3,7 @@ import { render, wait, fireEvent } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import { Router } from 'react-router-dom';
-import { createMemoryHistory } from 'history'
+import { createMemoryHistory } from 'history';
 
 import reducers from '../../reducers/reducers';
 import App from '../../components/App';

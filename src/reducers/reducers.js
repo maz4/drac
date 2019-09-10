@@ -2,18 +2,31 @@ import * as actionTypes from '../constants/constants';
 
 const initialState = {
   cardsData: [],
-  slectedCard: null,
-  isLoading: true
+  card:[],
+  slectedCard: '',
+  isLoading: true,
+  isLoadingCard: true
 };
 
 const reducers = (state = initialState, action) => {
   switch(action.type){
-    case actionTypes.GET_CARDS:
+    case actionTypes.GET_ALL_CARDS:
       return {
         ...state,
         cardsData: action.payload,
         isLoading: false
       };
+    case actionTypes.SELECT_CARD:
+      return {
+        ...state,
+        slectedCard: action.payload
+      };
+    case actionTypes.GET_CARD:
+      return {
+        ...state,
+        card: action.payload,
+        isLoadingCard: false
+      }
     default:
       return state;
   }
