@@ -1,9 +1,10 @@
 import React from 'react';
 import { render, wait, fireEvent } from '@testing-library/react';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
+import thunk from 'redux-thunk';
 
 import reducers from '../../reducers/reducers';
 import App from '../../components/App';
@@ -48,7 +49,7 @@ jest.mock('axios', () => {
 });
 
 test('Should render Card list on the main', async () => {
-    const store = createStore(reducers);
+    const store = createStore(reducers, applyMiddleware(thunk));
     const history = createMemoryHistory({initialEntries: ['/']})
     const {getByAltText, queryByTestId, queryByText, queryAllByText} = render(
         <Provider store={store}>

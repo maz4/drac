@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import axios from 'axios';
 
 import Spinner from '../components/Spinner';
 import DescriptionComponent from '../components/DescriptionComponent';
@@ -10,11 +9,8 @@ import { getCardData } from '../actions/actions';
 class CardContainer extends Component {
 
     componentDidMount() {
-        this.props.getCardData();
-
+        this.props.getCardData(this.props.selectedCard);
     }
-
-
 
     render() {
         if(this.props.isLoadingCard){

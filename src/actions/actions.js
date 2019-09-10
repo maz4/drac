@@ -19,8 +19,8 @@ const getCard = (data) => {
   return {
     type: actionTypes.GET_CARD,
     payload: data
-  }
-}
+  };
+};
 
 export const getCardData = (id) => {
   const proxyurl = "https://cors-anywhere.herokuapp.com/";
@@ -33,6 +33,6 @@ export const getCardData = (id) => {
       .catch(error => {
           console.log(error);
       });
-  }
-}
+  };
+};
 
