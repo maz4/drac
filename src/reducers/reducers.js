@@ -21,6 +21,13 @@ const reducers = (state = initialState, action) => {
         ...state,
         slectedCard: action.payload
       };
+    case actionTypes.REMOVE_CARD:
+      return {
+        ...state,
+        slectedCard: '',
+        card: [],
+        isLoadingCard: true
+      };
     case actionTypes.GET_CARD:
       return {
         ...state,

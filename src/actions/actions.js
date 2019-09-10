@@ -1,7 +1,7 @@
 import * as actionTypes from '../constants/constants';
 import axios from 'axios';
 
-const getAllCards = (data) => {
+const saveCards = (data) => {
   return {
     type: actionTypes.GET_ALL_CARDS,
     payload: data
@@ -14,6 +14,12 @@ export const selectCard = (id) => {
     payload: id
   };
 };
+
+export const removeCard = () => {
+  return {
+    type: actionTypes.REMOVE_CARD,
+  }
+}
 
 const getCard = (data) => {
   return {
@@ -42,7 +48,7 @@ export const fetchData = () => {
   return dispatch => {
     axios.get(proxyurl + url)
       .then(response => {
-        dispatch(getAllCards(response.data.Products));
+        dispatch(saveCards(response.data.Products));
       })
       .catch(error => {
           console.log(error);

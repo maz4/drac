@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import Spinner from '../components/Spinner';
 import DescriptionComponent from '../components/DescriptionComponent';
 import styles from './CardContainer.module.css';
-import { getCardData } from '../actions/actions';
+import { getCardData, removeCard } from '../actions/actions';
 
 class CardContainer extends Component {
+
+    componentWillUnmount(){
+        this.props.removeCard();
+    }
 
     componentDidMount() {
         this.props.getCardData(this.props.selectedCard);
@@ -43,8 +48,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getCardData: (data) => dispatch(getCardData(data))
-    }
+        getCardData: (data) => dispatch(getCardData(data)),
+        removeCard: () => dispatch(removeCard())
+    };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CardContainer);
