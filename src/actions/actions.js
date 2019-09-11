@@ -1,7 +1,7 @@
 import * as actionTypes from '../constants/constants';
 import axios from 'axios';
 
-const saveCards = (data) => {
+const saveCardsData = (data) => {
   return {
     type: actionTypes.GET_ALL_CARDS,
     payload: data
@@ -48,7 +48,7 @@ export const fetchData = () => {
   return dispatch => {
     axios.get(proxyurl + url)
       .then(response => {
-        dispatch(saveCards(response.data.Products));
+        dispatch(saveCardsData(response.data.Products));
       })
       .catch(error => {
           console.log(error);
