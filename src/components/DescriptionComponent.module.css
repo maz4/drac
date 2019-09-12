@@ -1,16 +1,24 @@
 .Description__Title{
-  font-size: 2rem;
+  font-size: 1.5rem;
   padding-top: 0.5rem;
   margin-top: 0;
 }
 
 .Description__Content {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   margin-top: 0;
+  margin-bottom: 5rem;
 }
 
 .Description {
-  width: 50%;
-  flex-basis: 50%;
+  width: 90%;
+  flex-basis: 90%;
   position: relative
+}
+
+@media (min-width: 768px){
+  .Description {
+    width: 45%;
+    flex-basis: 45%;
+  }
 }

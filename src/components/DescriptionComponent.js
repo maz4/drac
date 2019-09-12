@@ -7,7 +7,7 @@ const DescriptionComponent = (props) => {
     <div className={styles.Description}>
       <div className={styles.DescriptionElements}>
         <h1 className={styles.Description__Title}>{props.title}</h1>
-        <p className={styles.Description__Content}>{props.desc}</p>
+        <div className={styles.Description__Content} dangerouslySetInnerHTML={{__html: props.desc}}></div>
       </div>
       <ButtonComponent />
     </div>
