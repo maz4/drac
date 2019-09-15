@@ -13,7 +13,8 @@ class CardContainer extends Component {
     }
 
     componentDidMount() {
-        this.props.getCardData(this.props.selectedCard);
+        const productId = this.props.history.location.pathname.split('/')[2];
+        this.props.getCardData(productId);
     }
 
     render() {

@@ -7,15 +7,15 @@ import { fetchData } from '../actions/actions';
 
 class CardsContainer extends Component {
     componentDidMount() {
-        if(this.props.isLoading){
+        // if(this.props.isLoading){
             this.props.onPageLoad();
-        }
+        // }
     }
 
     render() {
-        if(this.props.isLoading){
-            return <Spinner />;
-        }
+        // if(this.props.isLoading){
+        //     return <Spinner />;
+        // }
 
         return ( <div className = {styles.Container}>
                 {this.props.cardsData.map( card => (

@@ -7,36 +7,42 @@ import { createMemoryHistory } from 'history';
 import thunk from 'redux-thunk';
 
 import reducers from '../../reducers/reducers';
-import CardContainer from '../CardContainer';
+import App from '../../components/App';
 
 jest.mock('axios', () => {
   return {
-    get: jest.fn( () => Promise.resolve({
-      data: {
-        ImageUrls: 'link1',
-        Title: 'title 1',
-        Description: 'description 1',
+    get: jest.fn((url) => {
+      const param = url.split('=')[1];
+      const dataId = {
+        data: {
+          ImageUrls: 'link1',
+          Title: 'title 1',
+          Description: 'description 1',
+        }
       }
-    }))
+      return Promise.resolve(param === 'one' ? dataId : null)
+    })
   };
 });
 
 
 test('it should render card with title, description and button', async () => {
   const store = createStore(reducers, applyMiddleware(thunk));
-  const history = createMemoryHistory({initialEntries: ['/one/']})
-  const { getByText, queryByText, getByAltText, queryByTestId } = render(
+  const history = createMemoryHistory({initialEntries: ['/card/one']})
+  const { queryByText, queryAllByText, queryByAltText, queryByTestId } = render(
     <Provider store={store} >
       <Router history={history} >
-        <CardContainer />
+        <App />
       </Router>
     </Provider>
   );
-  wait();
+
   expect(queryByTestId("spinner")).toBeInTheDocument();
 
-  await wait(() => queryByText(/title\s/i));
-  expect(getByAltText(/title\s/i)).toBeInTheDocument();
-  expect(getByText(/description/i)).toBeInTheDocument();
-  expect(getByText(/buy\sme/i)).toBeInTheDocument();
+  await wait(() => expect(queryAllByText(/title 1/i)).toHaveLength(1));
+  
+  expect(queryByAltText(/title 1/i)).toBeInTheDocument();
+  expect(queryByText(/description/i)).toBeInTheDocument();
+  expect(queryByText(/buy me/i)).toBeInTheDocument();
+
 });

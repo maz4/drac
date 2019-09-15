@@ -58,7 +58,7 @@ test('Should render Card list on the main', async () => {
             </Router>
         </Provider>
     );
-    expect(queryByTestId("spinner")).toBeInTheDocument();
+    // expect(queryByTestId("spinner")).toBeInTheDocument();
 
     expect(queryAllByText(/title\/s/i)).toHaveLength(0);
 
@@ -77,4 +77,7 @@ test('Should render Card list on the main', async () => {
     fireEvent.click(getByAltText('title 1'));
     
     expect(history.location.pathname).toBe("/card/one");
+    
+    expect(queryByTestId("spinner")).toBeInTheDocument();
+
 });
