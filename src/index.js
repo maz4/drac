@@ -15,10 +15,10 @@ const store = createStore(reducers, composeEnhancers(applyMiddleware(thunk)));
 
 const app = (
   <Provider store={store} >
-    <Router>
-      <App />
-    </Router>
-  </Provider>
+      <Router>
+          <App />
+      </Router>
+    </Provider>
 );
 
 ReactDOM.render(app, document.getElementById('root'));

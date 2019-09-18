@@ -4,8 +4,9 @@ const initialState = {
   cardsData: [],
   card:[],
   slectedCard: '',
-  isLoading: true,
-  isLoadingCard: true
+  pageLoad: true,
+  isLoadingCard: true,
+  hasError: false
 };
 
 const reducers = (state = initialState, action) => {
@@ -14,7 +15,7 @@ const reducers = (state = initialState, action) => {
       return {
         ...state,
         cardsData: action.payload,
-        isLoading: false
+        pageLoad: false
       };
     case actionTypes.SELECT_CARD:
       return {
@@ -33,6 +34,11 @@ const reducers = (state = initialState, action) => {
         ...state,
         card: action.payload,
         isLoadingCard: false
+      }
+    case actionTypes.SET_ERROR:
+      return {
+        ...state,
+        hasError: true
       }
     default:
       return state;

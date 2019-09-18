@@ -2,20 +2,19 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styles from './CardsContainer.module.css';
 import CardComponent from '../components/CardComponent';
-import Spinner from '../components/Spinner';
 import { fetchData } from '../actions/actions';
+import Spinner from '../components/Spinner';
 
 class CardsContainer extends Component {
     componentDidMount() {
-        // if(this.props.isLoading){
-            this.props.onPageLoad();
-        // }
+        this.props.onPageLoad();
     }
 
     render() {
-        // if(this.props.isLoading){
-        //     return <Spinner />;
-        // }
+
+        if(this.props.pageLoad){
+            return <Spinner />;
+        }
 
         return ( <div className = {styles.Container}>
                 {this.props.cardsData.map( card => (
@@ -33,7 +32,7 @@ class CardsContainer extends Component {
 const mapStateToProps = (state) => {
     return {
         cardsData: state.cardsData,
-        isLoading: state.isLoading
+        pageLoad: state.pageLoad
     };
 };
 

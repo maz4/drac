@@ -3,14 +3,17 @@ import { Route } from 'react-router-dom';
 import CardsContainer from '../containers/CardsContainer';
 import CardContainer from '../containers/CardContainer';
 import styles from './App.module.css';
+import ErrorBoundry from '../containers/ErrorBoundry';
 
 const App = () => {
   return (
-    <div className={styles.App} >
-      <Route exact path="/card/:id" component={CardContainer} />
-      <Route exact path="/" component={CardsContainer} />
-    </div>
-  )
-}
+    <ErrorBoundry>
+      <div className={styles.App} >
+        <Route path="/card/:id" component={CardContainer} />
+        <Route exact path="/" component={CardsContainer} />
+      </div>
+    </ErrorBoundry>
+  );
+};
 
 export default App;

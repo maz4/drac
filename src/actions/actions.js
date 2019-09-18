@@ -28,6 +28,12 @@ const getCard = (data) => {
   };
 };
 
+const setError = () => {
+  return {
+    type: actionTypes.SET_ERROR,
+  }
+}
+
 export const getCardData = (id) => {
   const proxyurl = "https://cors-anywhere.herokuapp.com/";
   const url = proxyurl + "https://www.moonpig.com/uk/api/product/product/?mpn=" + id;
@@ -37,7 +43,7 @@ export const getCardData = (id) => {
         dispatch(getCard(response.data));
       })
       .catch(error => {
-          console.log(error);
+        dispatch(setError());
       });
   };
 };
@@ -51,7 +57,7 @@ export const fetchData = () => {
         dispatch(saveCardsData(response.data.Products));
       })
       .catch(error => {
-          console.log(error);
+        dispatch(setError());
       });
   }
 }
