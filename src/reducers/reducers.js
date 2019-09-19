@@ -1,15 +1,7 @@
 import * as actionTypes from '../constants/constants'; 
+import store from '../store/store';
 
-const initialState = {
-  cardsData: [],
-  card:[],
-  slectedCard: '',
-  pageLoad: true,
-  isLoadingCard: true,
-  hasError: false
-};
-
-const reducers = (state = initialState, action) => {
+const reducers = (state = store, action) => {
   switch(action.type){
     case actionTypes.GET_ALL_CARDS:
       return {
