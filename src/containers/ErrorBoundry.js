@@ -2,6 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import styles from './ErrorBoundry.module.css';
 
+// what this component is using
+// it takes from the global store: hasError
+
 const ErrorBoundry = (props) => {
     if(props.hasError){
       return (

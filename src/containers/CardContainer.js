@@ -6,6 +6,10 @@ import DescriptionComponent from '../components/DescriptionComponent';
 import styles from './CardContainer.module.css';
 import { getCardData, removeCard } from '../actions/actions';
 
+// what this component is using
+// takes state for: ImageUrls, Title, Description, isLoadingCard
+
+
 class CardContainer extends Component {
 
     componentWillUnmount(){
@@ -40,7 +44,7 @@ class CardContainer extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        selectedCard: state.slectedCard,
+        selectedCard: state.slectedCard,// not used
         isLoadingCard: state.isLoadingCard,
         card: state.card
     };

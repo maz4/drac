@@ -5,6 +5,9 @@ import CardComponent from '../components/CardComponent';
 import { fetchData } from '../actions/actions';
 import Spinner from '../components/Spinner';
 
+// what this component is using
+// ot takes from the global store: cardsData and pageLoad
+
 class CardsContainer extends Component {
     componentDidMount() {
         this.props.onPageLoad();
